@@ -1,5 +1,6 @@
-import { prop } from '@typegoose/typegoose'
+import { Ref, prop } from '@typegoose/typegoose'
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
+import { UserModel } from 'src/user/user.model'
 
 export interface VideoModel extends Base {}
 
@@ -7,17 +8,14 @@ export class VideoModel extends TimeStamps {
   @prop()
   name: string
 
-  @prop()
-  isPublished: string
+  @prop({ default: false })
+  isPublished: boolean
 
   @prop({ default: 0 })
   views?: number
 
   @prop({ default: 0 })
-  like?: number
-
-  @prop({ default: 0 })
-  dislike?: number
+  likes?: number
 
   @prop()
   description: string
@@ -27,4 +25,7 @@ export class VideoModel extends TimeStamps {
 
   @prop()
   thumbnailPath: string
+
+  @prop({ ref: () => UserModel })
+  user: Ref<UserModel>
 }
