@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  Param,
   Put,
   UsePipes,
   ValidationPipe
@@ -12,6 +13,7 @@ import { UserDto } from './user.dto'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { CurrentUser } from './decorators/user.decorator'
 import { ObjectId } from 'mongoose'
+import { IdValidationPipe } from 'src/pipes/id.validation.pipe'
 
 @Controller('user')
 export class UserController {
@@ -29,6 +31,17 @@ export class UserController {
   @Auth()
   async updateProfile(@CurrentUser('_id') _id: ObjectId, @Body() dto: UserDto) {
     return this.userService.updateProfile(_id, dto)
+  }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Put(':id')
+  @Auth()
+  async updateUserAdmin(
+    @Param('id', IdValidationPipe) id: ObjectId,
+    @Body() dto: UserDto
+  ) {
+    return this.userService.updateProfile(id, dto)
   }
 
   @Get('most-popular')

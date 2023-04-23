@@ -30,7 +30,10 @@ export class VideoService {
   }
 
   async getMostPopularByViews() {
-    return this.VideoModel.find({ views: { $gt: 0 } }, { __v: 0 })
+    return this.VideoModel.find(
+      { views: { $gt: 0 }, isPublished: true },
+      { __v: 0 }
+    )
       .sort({
         subscribersCount: -1
       })
@@ -73,7 +76,7 @@ export class VideoService {
     const defaultValues: VideoDto = {
       name: '',
       description: '',
-      userId: String(userId),
+      user: String(userId),
       videoPath: '',
       thumbnailPath: ''
     }

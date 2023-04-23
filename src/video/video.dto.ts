@@ -1,4 +1,4 @@
-import { IsBoolean, IsString } from 'class-validator'
+import { IsString } from 'class-validator'
 
 export class VideoDto {
   @IsString()
@@ -15,5 +15,5 @@ export class VideoDto {
   @IsString()
   thumbnailPath: string
 
-  userId?: string
+  user?: string
 }
