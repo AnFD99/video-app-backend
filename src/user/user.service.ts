@@ -16,6 +16,25 @@ export class UserService {
     @InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>
   ) {}
 
+  async getUserWithVideoCount(_id: ObjectId) {
+    return this.UserModel.aggregate()
+      .match({ _id })
+      .lookup({
+        from: 'Video',
+        foreignField: 'user',
+        localField: '_id',
+        as: 'videos'
+      })
+      .addFields({
+        videosCount: {
+          $size: '$videos'
+        }
+      })
+      .project({ password: 0, __v: 0, videos: 0 })
+      .exec()
+      .then((data) => data[0])
+  }
+
   async getUserById(_id: ObjectId) {
     const user = await this.UserModel.findById(_id, { password: 0, __v: 0 })
 

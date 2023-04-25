@@ -22,7 +22,7 @@ export class UserController {
   @Get('profile')
   @Auth()
   async getProfile(@CurrentUser('_id') _id: ObjectId) {
-    return this.userService.getUserById(_id)
+    return this.userService.getUserWithVideoCount(_id)
   }
 
   @UsePipes(new ValidationPipe())
