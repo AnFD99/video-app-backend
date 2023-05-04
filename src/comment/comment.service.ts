@@ -12,7 +12,7 @@ export class CommentService {
     private readonly CommentModel: ModelType<CommentModel>
   ) {}
 
-  async getCommntsByVideoId(videoId: ObjectId) {
+  async getCommentsByVideoId(videoId: ObjectId) {
     return this.CommentModel.find({ video: videoId }, { __v: 0 })
       .sort({
         createdAt: 'desc'
@@ -21,6 +21,10 @@ export class CommentService {
   }
 
   async create(userId: ObjectId, dto: CommentDto) {
-    return await this.CommentModel.create({ ...dto, user: userId })
+    return await this.CommentModel.create({
+      message: dto.message,
+      video: dto.videoId,
+      user: userId
+    })
   }
 }

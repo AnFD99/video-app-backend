@@ -57,6 +57,7 @@ export class VideoService {
       .sort({
         createdAt: 'desc'
       })
+      .populate('user', 'name avatarPath')
       .exec()
   }
 

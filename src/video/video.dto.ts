@@ -15,5 +15,7 @@ export class VideoDto {
   @IsString()
   thumbnailPath: string
 
+  duration?: number
+
   user?: string
 }

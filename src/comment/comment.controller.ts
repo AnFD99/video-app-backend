@@ -19,11 +19,11 @@ import { CurrentUser } from 'src/user/decorators/user.decorator'
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
-  @Get('video/:videoId')
+  @Get('by-video/:videoId')
   async getCommentsByVideoId(
     @Param('videoId', IdValidationPipe) videoId: ObjectId
   ) {
-    return this.commentService.getCommntsByVideoId(videoId)
+    return this.commentService.getCommentsByVideoId(videoId)
   }
 
   @UsePipes(new ValidationPipe())

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { IMediaResonse } from './media.interface'
 import { path } from 'app-root-path'
 import * as fs from 'fs-extra'
+// import getVideoDurationInSeconds from 'get-video-duration'
 
 @Injectable()
 export class MediaService {
@@ -17,9 +18,12 @@ export class MediaService {
       mediaFile.buffer
     )
 
+    // const stream = fs.createReadStream(uploadFolder)
+    // const duration = getVideoDurationInSeconds(stream)
+
     return {
       url: `/uploads/${folder}/${mediaFile.originalname}`,
-      name: mediaFile.originalname
+      name: mediaFile.originalname,
     }
   }
 }
