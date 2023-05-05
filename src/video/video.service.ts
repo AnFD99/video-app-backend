@@ -34,8 +34,9 @@ export class VideoService {
       { views: { $gt: 0 }, isPublished: true },
       { __v: 0 }
     )
+      .populate('user', 'name avatarPath')
       .sort({
-        subscribersCount: -1
+        views: -1
       })
       .exec()
   }
