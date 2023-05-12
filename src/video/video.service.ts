@@ -16,7 +16,7 @@ export class VideoService {
   ) {}
 
   async getVideoById(_id: string, isPublished = true) {
-    // Check Auth userId === video.userId
+    // todo Check Auth userId === video.userId
     const video = await this.VideoModel.findOne(
       isPublished ? { _id, isPublished: true } : { _id },
       { __v: 0 }
